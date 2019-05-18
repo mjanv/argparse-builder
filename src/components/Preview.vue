@@ -1,6 +1,6 @@
 <template>
   <div>
-    import argparse<br>
+    <import></import><br>
     parser = argparse.ArgumentParser(description='{{ description }}')<br>
     <p v-for="arg in args" :key="arg.id">
       <template v-if="arg.position == 'positional'">
@@ -15,9 +15,14 @@
 </template>
 
 <script>
+import Import from './Import.vue'
+
 export default {
   name: 'HelloWorld',
   props: ['description', 'args'],
+  components: {
+    Import
+  }
 }
 </script>
 
