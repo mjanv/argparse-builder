@@ -2,42 +2,62 @@
   <body>
     <div id="example">
       <p>Argparse builder</p>
-      <p>Arguments</p>
+
+      <textarea v-model="description" placeholder="Parser description"></textarea>
+      <p>Arguments</p>this.args.length
       <ul>
         <li v-for="arg in args">
-          {{ arg.name }}
+          {{ arg.name }} - {{ arg.position }}
           <button type="button" v-on:click="remove_argument(arg.id)">-</button>
         </li>
       </ul>
       <input v-model="name" placeholder="name">
+      <select v-model="position">
+          <option value="positional">Positional</option>
+          <option value="optional">Optional</option>
+      </select> 
       <button type="button" v-on:click="add_argument">+</button>
       <p>Preview</p>
-      <preview :args="args"></preview>
+      <preview :description="description" :args="args"></preview>
+      {{ args }}
     </div>
     <script src="https://unpkg.com/vue"></script>
     <script>
         Vue.component('preview', {
-          props: ['args'],
+          props: ['description', 'args'],
           template: `<div>
           import argparse<br>
-          parser = argparse.ArgumentParser()<br>
-          <p v-for="arg in this.args">parser.add_argument('{{ arg.name }}')</p><br>
-          args = parser.parse_args()            
+          parser = argparse.ArgumentParser(description='{{ description }}')<br>
+          <p v-for="arg in this.args">
+            <template v-if="arg.position == 'positional'">
+              parser.add_argument('{{ arg.name }}')
+            </template>
+            <template v-else>
+              parser.add_argument('--{{ arg.name }}', '-{{ arg.name[0] }}')
+            </template>
+          </p><br>
+          args = parser.parse_args()
           </div>`
         })
         new Vue({
             el: '#example',
             data: { 
               args: [],
-              name: ''
+              name: '',
+              position: '',
+              description: '',
             },
             methods: {
               add_argument: function() {
-                this.args.push({'id': this.args.length, 'name': this.name});
+                this.args.push({
+                  'id': Date.now(),
+                  'name': this.name,
+                  'position': this.position
+                });
               },
 
               remove_argument: function(id) {
-                this.args.splice(id, 1);
+                this.args = this.args.filter(function(e) { return e.id !== id })
               }
             }
         })
