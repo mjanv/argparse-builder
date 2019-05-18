@@ -1,0 +1,41 @@
+<html>
+  <body>
+    <div id="example">
+      <p>Argparse builder</p>
+      <p>Arguments</p>
+      <ul>
+        <li v-for="arg in args">
+          {{ arg.message }}
+        </li>
+      </ul>
+      <input v-model="name" placeholder="name">
+      <button type="button" v-on:click="add_argument">+</button>
+      <p>Preview</p>
+      <preview :args="args"></preview>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        Vue.component('preview', {
+          props: ['args'],
+          template: `<div>
+          import argparse<br>
+          parser = argparse.ArgumentParser()<br>
+          <p v-for="arg in this.args">parser.add_argument('{{ arg.message }}')</p><br>
+          args = parser.parse_args()            
+          </div>`
+        })
+        new Vue({
+            el: '#example',
+            data: { 
+              args: [],
+              name: ''
+            },
+            methods: {
+              add_argument: function() {
+                this.args.push({'message': this.name});
+              }
+            }
+        })
+    </script>
+  </body>
+</html>
