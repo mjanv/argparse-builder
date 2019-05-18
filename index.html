@@ -5,7 +5,8 @@
       <p>Arguments</p>
       <ul>
         <li v-for="arg in args">
-          {{ arg.message }}
+          {{ arg.name }}
+          <button type="button" v-on:click="remove_argument(arg.id)">-</button>
         </li>
       </ul>
       <input v-model="name" placeholder="name">
@@ -20,7 +21,7 @@
           template: `<div>
           import argparse<br>
           parser = argparse.ArgumentParser()<br>
-          <p v-for="arg in this.args">parser.add_argument('{{ arg.message }}')</p><br>
+          <p v-for="arg in this.args">parser.add_argument('{{ arg.name }}')</p><br>
           args = parser.parse_args()            
           </div>`
         })
@@ -32,7 +33,11 @@
             },
             methods: {
               add_argument: function() {
-                this.args.push({'message': this.name});
+                this.args.push({'id': this.args.length, 'name': this.name});
+              },
+
+              remove_argument: function(id) {
+                this.args.splice(id, 1);
               }
             }
         })
