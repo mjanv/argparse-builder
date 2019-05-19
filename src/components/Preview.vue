@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="preview">
     <import></import><br>
     parser = argparse.ArgumentParser(description='{{ description }}')<br>
     <p v-for="arg in args" :key="arg.id">
@@ -27,4 +27,8 @@ export default {
 </script>
 
 <style scoped>
+#preview {
+  background-color: #e9ecef;
+  padding: 5px;
+}
 </style>
