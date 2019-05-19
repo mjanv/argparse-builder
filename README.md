@@ -1,5 +1,7 @@
 # Argparse builder
 
+[![Build Status](https://travis-ci.org/mjanv/argparse-builder.svg?branch=master)](https://travis-ci.org/mjanv/argparse-builder)
+
 ## Project setup
 ```
 npm install

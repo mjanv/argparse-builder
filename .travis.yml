@@ -4,4 +4,5 @@ node_js:
 before_script:
   - npm install firebase-tools -g
 script:
+  - npm run build
   - firebase deploy --only hosting --token "$FIREBASE_TOKEN"
