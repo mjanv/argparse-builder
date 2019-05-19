@@ -1,22 +1,48 @@
 <template>
   <div id="app">
-      <p>Argparse builder</p>
+      <b-container>
+        <b-row>
+          <b-col></b-col>
+          <b-col cols="8">
+            <h1>Argparse builder</h1>
 
-      <textarea v-model="description" placeholder="Parser description"></textarea>
-      <p>Arguments</p>
-      <ul>
-        <li :key="arg.id" v-for="arg in args">
-          {{ arg.name }} - {{ arg.position }}
-          <button type="button" v-on:click="remove_argument(arg.id)">-</button>
-        </li>
-      </ul>
-      <input v-model="name" placeholder="name">
-      <select v-model="position">
-          <option value="positional">Positional</option>
-          <option value="optional">Optional</option>
-      </select> 
-      <button type="button" v-on:click="add_argument">+</button>
-      <preview :description="description" :args="args"></preview>
+            <b-form-textarea
+              id="textarea"
+              v-model="description"
+              placeholder="You can add a description for the whole parser..."
+              rows="3"
+              max-rows="6"
+            ></b-form-textarea>
+
+            <h2>Arguments</h2>
+            <ul>
+              <li :key="arg.id" v-for="arg in args">
+                {{ arg.name }} - {{ arg.position }}
+                <b-button type="button" v-on:click="remove_argument(arg.id)">-</b-button>
+              </li>
+            </ul>
+
+            <h2>Add a new argument</h2>
+            <b-form-input v-model="name" placeholder="Argument name"></b-form-input>
+            <select v-model="position">
+                <option value="positional">Positional</option>
+                <option value="optional">Optional</option>
+            </select> 
+            <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
+              <b-dropdown-item>First Action</b-dropdown-item>
+              <b-dropdown-item>Second Action</b-dropdown-item>
+              <b-dropdown-item>Third Action</b-dropdown-item>
+              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-item active>Active action</b-dropdown-item>
+              <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+            </b-dropdown>
+            <b-button variant="outline-primary" type="button" v-on:click="add_argument">+</b-button>
+            
+            <preview :description="description" :args="args"></preview>            
+          </b-col>
+          <b-col></b-col>
+        </b-row>
+      </b-container>
   </div>
 </template>
 
@@ -57,7 +83,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
