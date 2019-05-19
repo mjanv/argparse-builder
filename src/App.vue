@@ -1,11 +1,23 @@
 <template>
   <div id="app">
-      <b-container>
-        <b-row>
-          <b-col></b-col>
-          <b-col cols="8">
-            <h1>Argparse builder</h1>
 
+      <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Argparse builder</span>
+        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Fork me on Github</button>
+      </nav>
+
+      <b-container>
+
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">Tired of writing python arguments parser ?</h1>
+            <p class="lead">...</p>
+          </div>
+        </div>
+
+        <b-row>
+          <b-col>
+            <h2>Parser</h2>
             <b-form-textarea
               id="textarea"
               v-model="description"
@@ -24,24 +36,19 @@
 
             <h2>Add a new argument</h2>
             <b-form-input v-model="name" placeholder="Argument name"></b-form-input>
-            <select v-model="position">
+            <select class="custom-select" v-model="position">
+                <option selected>Choose...</option>
                 <option value="positional">Positional</option>
                 <option value="optional">Optional</option>
-            </select> 
-            <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-              <b-dropdown-item>First Action</b-dropdown-item>
-              <b-dropdown-item>Second Action</b-dropdown-item>
-              <b-dropdown-item>Third Action</b-dropdown-item>
-              <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item active>Active action</b-dropdown-item>
-              <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-            </b-dropdown>
+            </select>
             <b-button variant="outline-primary" type="button" v-on:click="add_argument">+</b-button>
-            
-            <preview :description="description" :args="args"></preview>            
           </b-col>
-          <b-col></b-col>
+          <b-col>
+            <preview :description="description" :args="args"></preview>
+            <!--<pre v-highlightjs><code class="python"></code></pre>-->
+          </b-col>
         </b-row>
+
       </b-container>
   </div>
 </template>
@@ -84,6 +91,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
